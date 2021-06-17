@@ -1,5 +1,16 @@
+# Help method
+def help
+  puts <<~HELP
+    Command / discription
+    ----------------------------------------------
+    help / displays this information
+    new / creates a new item in the database
+    end / saves the database and exits the program
+  HELP
+end
+
 # Starting messages
-puts "Enter \"end\" when done."
+help
 
 # Main program loop
 while true
@@ -8,11 +19,16 @@ while true
 
   case command
   when "end"
-    puts "Stopping."
+    puts "Saving"
+    puts "Exiting"
     break
+  when "help"
+    help
   when "new"
     puts "TEST: insert new method here"
   else
-    puts "ERROR: Command unknown."
+    puts "ERROR: Command unknown"
   end
 end
+
+
