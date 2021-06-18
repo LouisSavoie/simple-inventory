@@ -27,6 +27,7 @@ def help
     ----------------------------------------------
     help / displays this information
     new / creates a new item in the database
+    edit / edits an item's name or count
     exit / saves the database and exits the program
   HELP
 end
@@ -41,6 +42,41 @@ def new
   write_to_yaml
 end
 
+# Edit method
+def edit
+  print "Item name: "
+  name = gets.chomp.downcase
+  if $inventory.include?(name)
+    while true
+      print "Edit #{name}'s name or count: "
+      choice = gets.chomp.downcase
+      case choice
+      when "exit"
+      break
+      when "name"
+        print "New name: "
+        new_name = gets.chomp.downcase
+        $inventory[new_name] = $inventory[name]
+        $inventory.delete(name)
+        write_to_yaml
+        puts "Inventory updated"
+        break
+      when "count"
+        print "Count: "
+        count = gets.chomp
+        $inventory[name] = count
+        write_to_yaml
+        puts "Inventory Updated"
+        break
+      else
+        puts "ERROR: Command unknown"
+      end
+    end
+  else
+    puts "ERROR: Item does not exist"
+  end
+end
+
 # Starting messages
 help
 
@@ -51,13 +87,14 @@ while true
 
   case command
   when "exit"
-    puts "Saving"
     puts "Exiting"
     break
   when "help"
     help
   when "new"
     new
+  when "edit"
+    edit
   else
     puts "ERROR: Command unknown"
   end
