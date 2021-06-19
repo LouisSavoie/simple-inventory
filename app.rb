@@ -26,9 +26,10 @@ def help
     Command / discription
     ----------------------------------------------
     help / displays this information
-    new / creates a new item in the database
+    new / creates a new item
     edit / edits an item's name or count
-    exit / saves the database and exits the program
+    delete / deletes an item
+    exit / exits the program
   HELP
 end
 
@@ -77,6 +78,19 @@ def edit
   end
 end
 
+# Delete method
+def delete
+  print "Item name: "
+  name = gets.chomp.downcase
+  if $inventory.include?(name)
+    $inventory.delete(name)
+    write_to_yaml
+    puts "Inventory updated"
+  else
+    puts "ERROR: Item does not exist"
+  end
+end
+
 # Starting messages
 help
 
@@ -95,6 +109,8 @@ while true
     new
   when "edit"
     edit
+  when "delete"
+    delete
   else
     puts "ERROR: Command unknown"
   end
