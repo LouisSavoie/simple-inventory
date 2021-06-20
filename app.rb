@@ -27,6 +27,7 @@ def help
     ----------------------------------------------
     help / displays this information
     new / creates a new item
+    find / look up an item
     edit / edits an item's name or count
     delete / deletes an item
     exit / exits the program
@@ -41,6 +42,17 @@ def new
   current = gets.chomp.downcase
   $inventory[name] = current
   write_to_yaml
+end
+
+# Find method
+def find
+  print "Item name: "
+  name = gets.chomp.downcase
+  if $inventory.include?(name)
+    puts "#{name}, On-hand: #{$inventory[name]}"
+  else
+    puts "ERROR: Item does not exist"
+  end
 end
 
 # Edit method
@@ -107,6 +119,8 @@ while true
     help
   when "new"
     new
+  when "find"
+    find
   when "edit"
     edit
   when "delete"
